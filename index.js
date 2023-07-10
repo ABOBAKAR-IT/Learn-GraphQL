@@ -70,6 +70,8 @@ const resolvers = {
    getPost:(_,arg)=>Post.find(post=>post.id==arg.id),
    getAllPosts:()=>Post
   },
+  User:{posts:(parent)=>Post.filter(post=>post.userId==parent.id)},
+  Post:{user:(parent)=>User.find(user=>user.id==parent.userId)}
 };
 
 const server = new ApolloServer({

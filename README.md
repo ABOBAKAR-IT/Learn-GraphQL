@@ -96,6 +96,29 @@ query GetAllPosts {
   }
 }
 ```
-
+Get Posts with User
+```
+query GetUser {
+  getAllPosts {
+    id
+    title
+    user {
+      name
+    }
+  }
+}
+```
+Get Users with Post
+```
+query GetUser {
+  getAllUsers {
+    id
+    name
+    posts {
+      title
+    }
+  }
+}
+```
 
 [JSON Placeholder](https://jsonplaceholder.typicode.com/)
