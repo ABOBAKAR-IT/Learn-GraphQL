@@ -1,124 +1,37 @@
-# graphql
+#GraphQL
 
-Testing GrapQL following [this link](https://medium.freecodecamp.org/a-beginners-guide-to-graphql-86f849ce1bec)
+The provided code sets up an Apollo Server using Express.js to create a GraphQL API. Let's go through the code step by step:
 
-## Run
+1. **Importing Dependencies:**
+   - The code imports various dependencies using the `import` statement. These dependencies include:
+     - `express`: A web framework for Node.js used to create the Express application.
+     - `ApolloServer`: The main class for creating an Apollo Server instance.
+     - `startStandaloneServer`: A function from Apollo Server Standalone that starts the server.
+     - `cors`: Middleware that enables Cross-Origin Resource Sharing (CORS).
+     - `bodyParser`: Middleware that parses incoming request bodies.
 
-```sh
-cd Learn-GraphQL
-npm install
-node index.js
-```
+2. **Creating the Express Application:**
+   - The code initializes an Express application using `express()`, assigning it to the `app` variable.
 
-- Navigate to [http://localhost:8000](http://localhost:8000)
-- Try the following queries
-  - Get User By ID
+3. **Middleware Setup:**
+   - `cors()` enables CORS for the Express application, allowing cross-origin requests.
+   - `bodyParser.json()` is used to parse JSON request bodies.
 
-```
-query GetUser($getUserId: ID!) {
-  getUser(id: $getUserId) {
-    id
-    name
-    phone
-    username
-    website
-    email
-    address {
-      city
-      street
-      geo {
-        lat
-        lng
-      }
-    }
-    company {
-      name
-      catchPhrase
-      bs
-    }
-  }
-}
-```
+4. **Defining the GraphQL Schema (Type Definitions):**
+   - The code defines the GraphQL schema using the `typeDefs` constant, which is a string containing the schema written in GraphQL's Schema Definition Language (SDL).
+   - The schema defines several types: `User`, `Address`, `GeoLocation`, `Company`, and `Post`.
+   - Each type has fields with their respective types and relationships to other types.
 
-  - Get All User
+5. **Resolvers:**
+   - The code defines the resolver functions that resolve the queries defined in the schema.
+   - The `Query` object in the `resolvers` defines resolver functions for the available queries: `getUser`, `getAllUsers`, `getPost`, `getAllPosts`, and `getPostsByUserId`.
+   - The `User` and `Post` types have additional resolver functions for the `posts` and `user` fields, respectively.
 
-```
-query GetAllUsers {
-  getAllUsers {
-    id
-    name
-    phone
-    username
-    website
-    email
-    address {
-      city
-      geo {
-        lat
-        lng
-      }
-      street
-      suite
-      zipcode
-    }
-    company {
-      name
-      catchPhrase
-      bs
-    }
-  }
-}
-```
+6. **Creating the Apollo Server:**
+   - The code creates a new instance of `ApolloServer` by passing the `typeDefs` and `resolvers` to the constructor.
+   - The `ApolloServer` instance is assigned to the `server` variable.
 
-- 
-  - Get Post By ID
-
-```
-query GetPost($getPostId: ID!) {
-  getPost(id: $getPostId) {
-    id
-    body
-    title
-    userId
-  }
-}
-```
-
-  - Get All Post
-
-```
-query GetAllPosts {
-  getAllPosts {
-    id
-    userId
-    title
-    body
-  }
-}
-```
-Get Posts with User
-```
-query GetUser {
-  getAllPosts {
-    id
-    title
-    user {
-      name
-    }
-  }
-}
-```
-Get Users with Post
-```
-query GetUser {
-  getAllUsers {
-    id
-    name
-    posts {
-      title
-    }
-  }
-}
-```
-
-[JSON Placeholder](https://jsonplaceholder.typicode.com/)
+7. **Starting the Server:**
+   - The code uses `startStandaloneServer` to start the Apollo Server.
+   - The server is configured to listen on port 8000.
+   - The returned `url` is logged to the console, indicating that the server is ready.
