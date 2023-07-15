@@ -50,7 +50,7 @@ type User {
   }
 
   type Mutation{
-    createUser(name: String!, username: String!, email: String!, phone: String!, website: String!): User!
+    createUser(name: String!, username: String!, email: String!, phone: String!, website: String!, street: String!,suite: String!, city: String!,zipcode: String!,lat: String!,lng: String!,cname: String!,catchPhrase: String!,bs: String!): User!
     createPost(userId: ID!, title: String!, body: String!): Post!
   }
 
