@@ -15,6 +15,12 @@ export const resolvers = {
               const newUser={id,...arg};
               User.push(newUser);
               return newUser
+    },
+    createPost:(parent,arg)=>{
+      const id=Post.length+1
+      const newPost={id,...arg}
+      Post.push(newPost)
+      return newPost
     }
   }
 }
