@@ -8,5 +8,13 @@ export const resolvers = {
      getAllPosts:()=>Post
     },
     User:{posts:(parent)=>Post.filter(post=>post.userId==parent.id)},
-    Post:{user:(parent)=>User.find(user=>user.id==parent.userId)}
-  };
+    Post:{user:(parent)=>User.find(user=>user.id==parent.userId)},
+    Mutation:{
+        createUser:(_,arg)=>{
+              const  id=User.length+1;
+              const newUser={id,...arg};
+              User.push(newUser);
+              return newUser
+    }
+  }
+}
