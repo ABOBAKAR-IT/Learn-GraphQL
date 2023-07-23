@@ -1,57 +1,40 @@
 
 
-export const typeDefs = `#gql
-
+export const typeDefs = `
 type User {
-    id: ID!
-    name: String!
-    username: String!
-    email: String!
-    address: Address!
-    phone: String!
-    website: String!
-    company: Company!
+    _id: ID!
+    name: String,
+  username: String,
+  email: String,
+  street: String,
+  city: String,
+  phone: String,
+  website: String,
+    
     posts: [Post!]!  # New field to fetch posts by user
   }
   
-  type Address {
-    street: String!
-    suite: String!
-    city: String!
-    zipcode: String!
-    geo: GeoLocation!
-  }
-  
-  type GeoLocation {
-    lat: String!
-    lng: String!
-  }
-  
-  type Company {
-    name: String!
-    catchPhrase: String!
-    bs: String!
-  }
+
   
   type Post {
     userId: ID!
-    id: ID!
+    _id: ID!
     title: String!
     body: String!
     user: User!  # New field to fetch the user of the post
   }
   
   type Query {
-    getUser(id: ID!): User
-    getAllUsers: [User!]!
-    getPost(id: ID!): Post
-    getAllPosts: [Post!]!
-    getPostsByUserId(userId: ID!): [Post!]!  # New query to fetch posts by user ID
+    findUser: [User!]!
+    findUserById(_id: ID!): User!
+    findPost: [Post!]!
+    findPostById(_id: ID!): Post!
   }
 
   type Mutation{
-    createUser(name: String!, username: String!, email: String!, phone: String!, website: String!, street: String!,suite: String!, city: String!,zipcode: String!,lat: String!,lng: String!,cname: String!,catchPhrase: String!,bs: String!): User!
+    createUser(name: String!, username: String!, email: String!, phone: String!, website: String!, street: String!,city:String!): User!
     createPost(userId: ID!, title: String!, body: String!): Post!
+   
   }
 
 `;
