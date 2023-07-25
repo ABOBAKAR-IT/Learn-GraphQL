@@ -34,7 +34,8 @@ type User {
   type Mutation{
     createUser(name: String!, username: String!, email: String!, phone: String!, website: String!, street: String!,city:String!): User!
     createPost(userId: ID!, title: String!, body: String!): Post!
-   
+   UpdateUser(id:ID!,name: String!, username: String!, email: String!, phone: String!, website: String!,street: String!,city:String!): User!
+   DeleteUser(id:ID!):User!
   }
 
 `;

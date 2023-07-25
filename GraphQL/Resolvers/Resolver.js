@@ -39,5 +39,14 @@ export const resolvers = {
     },
 
 
+    UpdateUser:async(parent,arg)=>{
+      return await Users.findByIdAndUpdate(arg.id,{
+        ...arg
+      },{new:true})
+    },
+
+    DeleteUser:async(parent,arg)=>{
+      return await Users.findByIdAndDelete(arg.id)
+    }
   }
 }
