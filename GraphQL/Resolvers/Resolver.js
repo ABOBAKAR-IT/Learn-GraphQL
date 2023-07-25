@@ -1,26 +1,52 @@
-import {User} from '../../fakeDB/fakeUser.js'
-import {Post} from '../../fakeDB/fakePost.js'
+import Users from '../../DB/User.js'
+import Posts from '../../DB/Post.js'
 export const resolvers = {
     Query: {
-     getUser:(_,arg)=>User.find(user=>user.id==arg.id),
-     getAllUsers:()=>User,
-     getPost:(_,arg)=>Post.find(post=>post.id==arg.id),
-     getAllPosts:()=>Post
+      findUser:async()=>{
+        return await Users.find()
+        },
+        findUserById:async(_,arg)=>{
+        return await Users.findOne({_id:arg._id})
+        },
+        findPost:async()=>{
+        return await Posts.find()
+        },
+        
+        findPostById:async(_,arg)=>{
+        return await Posts.findOne({_id:arg._id})
+        },
     },
-    User:{posts:(parent)=>Post.filter(post=>post.userId==parent.id)},
-    Post:{user:(parent)=>User.find(user=>user.id==parent.userId)},
+   
     Mutation:{
-        createUser:(_,arg)=>{
-              const  id=User.length+1;
-              const newUser={id,...arg};
-              User.push(newUser);
-              return newUser
+        createUser:async(_,arg)=>{
+            
+         try {
+          const user= new Users({
+            ...arg
+           })
+          return await user.save()
+         } catch (error) {
+          console.log(error)
+         }   
+           
     },
-    createPost:(parent,arg)=>{
-      const id=Post.length+1
-      const newPost={id,...arg}
-      Post.push(newPost)
-      return newPost
+    createPost:async(parent,arg)=>{
+    
+     const post=new Posts({
+       ...arg
+     })
+     return await post.save()
+    },
+
+
+    UpdateUser:async(parent,arg)=>{
+      return await Users.findByIdAndUpdate(arg.id,{
+        ...arg
+      },{new:true})
+    },
+
+    DeleteUser:async(parent,arg)=>{
+      return await Users.findByIdAndDelete(arg.id)
     }
   }
 }
